@@ -1,0 +1,34 @@
+# Python 3.10+.
+#
+# Install a CUDA-enabled PyTorch build for your platform BEFORE this file --
+# the wheel on PyPI may be CPU-only, and the model runners require a GPU. See
+# the Setup section of README.md and https://pytorch.org/get-started/locally/.
+#
+# The offline stages (split construction, table and figure regeneration) need
+# only the analysis block at the bottom; neither torch nor transformers is
+# imported when running them.
+
+# --- models -----------------------------------------------------------------
+torch>=2.4,<3
+# Audio Flamingo 3 first ships in the 5.x series, so 5.x is the floor. The
+# ceiling is kept at the major version because both runners depend on the
+# public processor and chat-template APIs.
+transformers>=5.0,<6
+# Required for device_map="auto" when sharding a 7B model across GPUs.
+accelerate>=1.0,<2
+
+# --- audio and signal processing --------------------------------------------
+# scipy supplies the Butterworth filters and the Gaussian smoothing used by the
+# frequency and spectral perturbation families; librosa supplies the STFT,
+# pitch shifting, time stretching, resampling, and harmonic/percussive
+# separation. soundfile is librosa's I/O backend and is needed to read the
+# dataset audio.
+numpy>=1.24,<3
+scipy>=1.10,<2
+librosa>=0.10,<1
+soundfile>=0.12,<1
+
+# --- analysis and reporting --------------------------------------------------
+tqdm>=4.66,<5
+# Only imported inside the figure-writing functions of scripts/summarize_results.py.
+matplotlib>=3.7,<4

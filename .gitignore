@@ -1,0 +1,33 @@
+# Generated artifacts. All are created on demand by the pipeline stages and
+# are the only directories helpers/config.py hard-codes.
+/data/          # licensed datasets you provide; never redistributed here
+/runs/          # decoding outputs, eval_*.json.gz per branch
+/cache/         # oracles and cached clean-branch features
+/checkpoints/   # trained selector heads and their summaries
+/outputs/       # regenerated tables and figures
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Model and tensor artifacts are large and are never committed. The negation
+# below keeps the README banner, which the root .gitignore would otherwise
+# exclude along with every other PNG.
+*.pt
+*.safetensors
+!architecture_overview.png
